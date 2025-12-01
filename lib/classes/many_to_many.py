@@ -70,19 +70,19 @@ class Author:
             self._name = value
 
     def articles(self):
-        """Returns a list of all articles the author has written"""
+        
         return [article for article in Article.all if article.author == self]
 
     def magazines(self):
-        """Returns a unique list of magazines the author has contributed to"""
+        
         return list(set([article.magazine for article in self.articles()]))
 
     def add_article(self, magazine, title):
-        """Creates and returns a new Article instance"""
+        
         return Article(self, magazine, title)
 
     def topic_areas(self):
-        """Returns a unique list of categories of magazines the author has contributed to"""
+        
         articles = self.articles()
         if not articles:
             return None
@@ -124,22 +124,22 @@ class Magazine:
             self._category = value
 
     def articles(self):
-        """Returns a list of all articles the magazine has published"""
+       
         return [article for article in Article.all if article.magazine == self]
 
     def contributors(self):
-        """Returns a unique list of authors who have written for this magazine"""
+        
         return list(set([article.author for article in self.articles()]))
 
     def article_titles(self):
-        """Returns a list of titles of all articles written for this magazine"""
+        
         articles = self.articles()
         if not articles:
             return None
         return [article.title for article in articles]
 
     def contributing_authors(self):
-        """Returns authors who have written more than 2 articles for the magazine"""
+        
         from collections import Counter
         articles = self.articles()
         if not articles:
@@ -152,7 +152,7 @@ class Magazine:
 
     @classmethod
     def top_publisher(cls):
-        """Returns the Magazine instance with the most articles"""
+    
         if not Article.all:
             return None
         
@@ -164,4 +164,4 @@ class Magazine:
         if not magazine_counts:
             return None
         
-        return max(magazine_counts, key=magazine_counts.get)
+        return max(magazine_counts, key=magazine_counts.get) # type: ignore
